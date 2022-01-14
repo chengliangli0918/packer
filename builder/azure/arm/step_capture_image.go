@@ -2,7 +2,6 @@ package arm
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2018-04-01/compute"
 	"github.com/hashicorp/packer-plugin-sdk/multistep"
@@ -66,33 +65,33 @@ func (s *StepCaptureImage) captureImage(ctx context.Context, resourceGroupName s
 }
 
 func (s *StepCaptureImage) Run(ctx context.Context, state multistep.StateBag) multistep.StepAction {
-	s.say("Capturing image ...")
+	//s.say("Capturing image ...")
 
 	var computeName = state.Get(constants.ArmComputeName).(string)
-	var location = state.Get(constants.ArmLocation).(string)
+	//var location = state.Get(constants.ArmLocation).(string)
 	var resourceGroupName = state.Get(constants.ArmResourceGroupName).(string)
-	var vmCaptureParameters = state.Get(constants.ArmVirtualMachineCaptureParameters).(*compute.VirtualMachineCaptureParameters)
-	var imageParameters = state.Get(constants.ArmImageParameters).(*compute.Image)
+	//var vmCaptureParameters = state.Get(constants.ArmVirtualMachineCaptureParameters).(*compute.VirtualMachineCaptureParameters)
+	//var imageParameters = state.Get(constants.ArmImageParameters).(*compute.Image)
 
 	var isManagedImage = state.Get(constants.ArmIsManagedImage).(bool)
-	var targetManagedImageResourceGroupName = state.Get(constants.ArmManagedImageResourceGroupName).(string)
-	var targetManagedImageName = state.Get(constants.ArmManagedImageName).(string)
-	var targetManagedImageLocation = state.Get(constants.ArmLocation).(string)
+	//var targetManagedImageResourceGroupName = state.Get(constants.ArmManagedImageResourceGroupName).(string)
+	//var targetManagedImageName = state.Get(constants.ArmManagedImageName).(string)
+	//var targetManagedImageLocation = state.Get(constants.ArmLocation).(string)
 
-	s.say(fmt.Sprintf(" -> Compute ResourceGroupName : '%s'", resourceGroupName))
-	s.say(fmt.Sprintf(" -> Compute Name              : '%s'", computeName))
-	s.say(fmt.Sprintf(" -> Compute Location          : '%s'", location))
+	//s.say(fmt.Sprintf(" -> Compute ResourceGroupName : '%s'", resourceGroupName))
+	//s.say(fmt.Sprintf(" -> Compute Name              : '%s'", computeName))
+	//s.say(fmt.Sprintf(" -> Compute Location          : '%s'", location))
 
 	err := s.generalizeVM(resourceGroupName, computeName)
 
 	if err == nil {
 		if isManagedImage {
-			s.say(fmt.Sprintf(" -> Image ResourceGroupName   : '%s'", targetManagedImageResourceGroupName))
-			s.say(fmt.Sprintf(" -> Image Name                : '%s'", targetManagedImageName))
-			s.say(fmt.Sprintf(" -> Image Location            : '%s'", targetManagedImageLocation))
-			err = s.captureManagedImage(ctx, targetManagedImageResourceGroupName, targetManagedImageName, imageParameters)
+			//s.say(fmt.Sprintf(" -> Image ResourceGroupName   : '%s'", targetManagedImageResourceGroupName))
+			//s.say(fmt.Sprintf(" -> Image Name                : '%s'", targetManagedImageName))
+			//s.say(fmt.Sprintf(" -> Image Location            : '%s'", targetManagedImageLocation))
+			//err = s.captureManagedImage(ctx, targetManagedImageResourceGroupName, targetManagedImageName, imageParameters)
 		} else {
-			err = s.captureVhd(ctx, resourceGroupName, computeName, vmCaptureParameters)
+			//err = s.captureVhd(ctx, resourceGroupName, computeName, vmCaptureParameters)
 		}
 	}
 	if err != nil {
