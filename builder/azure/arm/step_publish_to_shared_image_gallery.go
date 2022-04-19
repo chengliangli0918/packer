@@ -149,7 +149,7 @@ func (s *StepPublishToSharedImageGallery) Run(ctx context.Context, stateBag mult
 
 		return multistep.ActionHalt
 	}*/
-	createdGalleryImageVersionID := fmt.Sprintf("/%s/resourceGroups/%s/providers/Microsoft.Compute/galleries/%s/images/%s/versions/%s", managedImageSubscription, miSigPubRg, miSIGalleryName, miSGImageName, miSGImageVersion)
+	createdGalleryImageVersionID := fmt.Sprintf("/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Compute/galleries/%s/images/%s/versions/%s", managedImageSubscription, miSigPubRg, miSIGalleryName, miSGImageName, miSGImageVersion)
 
 	stateBag.Put(constants.ArmManagedImageSharedGalleryId, createdGalleryImageVersionID)
 	return multistep.ActionContinue
